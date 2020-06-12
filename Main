@@ -1,0 +1,85 @@
+import random
+
+sum = 0
+sum1 = 0
+
+blah1 = 0
+
+playeradd = 0
+playeradd1 = 0
+
+message = ''
+message1 = ''
+
+ans = input("Welcome to Pig! You, the player, will go first and roll a dice." + 
+        "\nEach number you roll will be added to the last number, unless you roll the dreaded 1.\n" +
+        "If you roll a 1, your score will become 0!" + 
+        "\nYou have the choice to hold your points, so you can keep your points before you roll a 1." +
+        "\nPlease enjoy!" + "\n\nYour score this round: " + str(playeradd) + "\nYour total score: " + str(sum) + "\nDo you want to roll or hold?")
+
+while (sum < 100 and sum1 < 100):
+    blah = 0 
+    
+    #code for player's round
+    while (ans == "roll" and sum < 100):
+        player = random.randint(1, 6)
+        print("\nYou decided to roll. You rolled a " + str(player) + ".")
+       
+        if (player == 1 and sum < 100):
+            playeradd = 0
+            #print("Your score is: " + str(sum))
+            message = "You rolled: " + str(player) + "\nOh no! You lost all your points for this turn!"
+            message1 = "\nThe computer is going next. It's current score is: " + str(sum1)
+            ans = input(message + "\nYour score this round: " + str(playeradd) + "\nYour total score: " + str(sum) + message1 + "\nIt's now your turn.\nDo you want to roll or hold?")
+            break
+        elif (player != 1 and sum < 100):
+            playeradd = blah + player
+            blah = playeradd
+            #print("Your score is: " + str(sum))
+            message = "You rolled: " + str(player)
+            ans = input(message + "\nYour score this round: " + str(playeradd) + "\nYour total score: " + str(sum) + "\nDo you want to roll or hold?")
+
+    while (ans == "hold" and sum < 100):
+        sum = sum + playeradd
+        message = "You decided to hold."
+        message1 = "\nThe computer is going next. It's current score is: " + str(sum1)
+        ans = input(message + "\nYour score: " + str(sum) + message1 + "\nDo you want to roll or hold?")
+        print("\nYou decided to hold.")
+        print("Your score this round: " + str(playeradd))
+        print("Your total score: " + str(sum))
+        break
+
+    print("\nYour turn is over! The computer will go next.")
+
+    #code for computer's round
+    choice = random.randint(1, 2)
+    while (choice == 1 and sum1 < 100):
+        blah1 = 0
+        player = random.randint(1, 6)
+        print("\nThe computer decided to roll. It rolled a " + str(player) + ".")
+
+        if (player == 1 and sum1 < 100):
+            playeradd1 = 0
+            #print("The computer's score: " + str(playeradd1))
+            message = "The computer rolled: " + str(player)
+            print("\nIt's your turn!")
+            break
+        elif (player != 1 and sum1 < 100):
+            playeradd1 = blah1 + player
+            blah1 = playeradd1
+            #print("The computer's score is: " + str(sum1))
+            message = "The computer rolled: " + str(player)
+            choice = random.randint(1, 2)
+
+    while (choice == 2 and sum1 < 100):
+        sum1 = sum1 + playeradd1
+        print("\nThe computer decided to hold.")
+        print("Its score is: " + str(sum1))
+        print("\nIt's your turn!")
+        break
+
+
+if (sum >= 100):
+    print("You won with " + str(sum) + " points!")
+elif (sum1 >= 100):
+    print("The computer won with " + str(sum1) + " points!")
